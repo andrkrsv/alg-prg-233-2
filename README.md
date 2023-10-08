@@ -9,5 +9,4 @@
 
 |[Контест 2](https://contest.yandex.ru/contest/52676/problems/) |  |
 | --- | :-: |
-| -
 | ... | ... |
