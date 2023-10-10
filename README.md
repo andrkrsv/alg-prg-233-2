@@ -18,7 +18,7 @@
 | --- | :-: |
 | ... | ... |
 
-|[Контест 1](https://contest.yandex.ru/contest/52142/problems/) |  |
+|[Контест 3](https://contest.yandex.ru/contest/53504/problems/) |  |
 | --- | :-: |
 | [1. Объединить отсортированные последовательности](./CONTEST-3/1/1.cpp) | ![](./img/cpp.png) |
 | [8. Уникальное число](./CONTEST-3/8/8.go) | ![](./img/go.png) |
