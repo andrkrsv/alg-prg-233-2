@@ -1,67 +1,40 @@
 #include <iostream>
 #include <string>
+#include <stack>
 
-struct Stroka {
-    std::string tekst;
-    char end = '\n';
-};
-
-Stroka poluchit_stroku() {
-    Stroka stroka;
-    std::getline(std::cin, stroka.tekst, stroka.end);
-    return stroka;
+std::string poluchit_stroku(char konets = '\n') {
+	std::string tekst;
+	std::getline(std::cin, tekst, konets);
+	return tekst;
 }
 
 bool predikat(std::string tekst) {
-    int schetchik_1 = 0, schetchik_2 = 0, schetchik_3=0;
-    std::string pred_sym = "";
-    for (char elem : tekst) {
-        if (schetchik_1 < 0 || schetchik_2 < 0 || schetchik_3 < 0) return false;
-        if (elem == '(') {
-            schetchik_1++;
-            pred_sym = ")"+ pred_sym;
-            continue;
-        }
-        if (elem == ')') {
-            schetchik_1--;
-            if (pred_sym[0] != elem) return false;
-            pred_sym = pred_sym.substr(1);
-            continue;
-        }
-
-        if (elem == '[') {
-            schetchik_2++;
-            pred_sym = "]"+ pred_sym;
-            continue;
-
-        }
-        if (elem == ']') {
-            schetchik_2--;
-            if (pred_sym[0] != elem) return false;
-            pred_sym = pred_sym.substr(1);
-            continue;
-
-        }
-        if (elem == '{') {
-            schetchik_3++;
-            pred_sym = "}"+ pred_sym;
-            continue;
-
-        }
-        if (elem == '}') {
-            schetchik_3--;
-            if (pred_sym[0] != elem) return false;
-            pred_sym = pred_sym.substr(1);
-            continue;
-
-        }
-
-    }
-    return schetchik_1 == 0 && schetchik_2 == 0 && schetchik_3 == 0;
+	std::stack<char> stek;
+	for (char elem : tekst) {
+		switch (elem) {
+			case '(':
+			case '[':
+			case '{':
+				stek.push(elem);
+				break;
+			case ')':
+				if (stek.empty() || stek.top() != '(') return false;
+				stek.pop();
+				break;
+			case ']':
+				if (stek.empty() || stek.top() != '[') return false;
+				stek.pop();
+				break;
+			case '}':
+				if (stek.empty() || stek.top() != '{') return false;
+				stek.pop();
+				break;
+		}
+	}
+	return stek.empty();
 }
 
 int main() {
-    Stroka stroka = poluchit_stroku();
-    bool result = predikat(stroka.tekst);
-    result ? std::cout << "YES" : std::cout << "NO";
+	std::string tekst = poluchit_stroku('!');
+	predikat(tekst) ? std::cout << "DA" : std::cout << "NET";
 }
